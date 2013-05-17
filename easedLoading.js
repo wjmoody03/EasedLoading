@@ -1,6 +1,6 @@
 (function ($) {
 
-    $("<style type='text/css'>.ball{position: absolute;width:8px;height:8px;background: #5c5c5c;border-radius: 5px;}</style>").appendTo('head');
+    $("<style type='text/css'>.ball{position: absolute;width:10px;height:10px;background: #5c5c5c;border-radius: 10px;}</style>").appendTo('head');
 
     $("<style type='text/css'>.loadingText{font-family: Tahoma;color: #5c5c5c;font-size:smaller;display:block;}</style>").appendTo('head');
 
@@ -18,9 +18,9 @@
         //start new loaders
         if (options == false) return;
         var args = $.extend({}, {
-            animationDuration: 3000,
-            newBallsInterval: 300,
-            easing: "easeInOutCirc",
+            animationDuration: 4000,
+            newBallsInterval: 400,
+            easing: "easeInOutQuart",
             ballCSSClass: "ball",
             textCSSClass: "loadingText",
             text: ""
@@ -33,6 +33,7 @@
         var intervalID = setInterval(function () {
             var ball = document.createElement("span");
             ball.style.opacity = 0;
+			$(ball).offset({left:$(ball).width()});
             $(ball).addClass(args.ballCSSClass);
             $(div).append(ball);
             $(ball).animate({
@@ -48,7 +49,7 @@
                 duration: Number(args.animationDuration) / 2
             });
             $(ball).animate({
-                left: $(div).width()
+                left: Number(div.width())-Number($(ball).width())				
             }, {
                 duration: Number(args.animationDuration),
                 easing: args.easing,
