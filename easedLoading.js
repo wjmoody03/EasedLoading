@@ -13,7 +13,7 @@
         div.find("." + textClass).animate({
             opacity: 0
         }, duration, function () {
-            div.remove()
+            $(this).remove()
         });
         //start new loaders
         if (options == false) return;
