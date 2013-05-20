@@ -86,4 +86,10 @@ https://nuget.org/packages/EasedLoading/
     <td>CSS class to apply to the balls being animated. The balls are simply animated spans, by default with a border radius and a background color. This class must have <code>position:absolute;</code> to work correctly.</td>
     <td></td>
   </tr>   
+  <tr>
+    <td>groupSize</td>
+    <td>Number</td>
+    <td>Batches balls in groups, then waits before sending the next group. If 0, it just sends a continuous stream of balls.</td>
+    <td>0</td>
+  </tr>     
 </table>
