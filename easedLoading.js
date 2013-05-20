@@ -6,6 +6,8 @@
 
     $.fn.loading = function (options) {
         var div = this;
+		var ballsInView =0;
+		var beQuiet = false;
         //clear any loaders:
         var duration = Number(div.attr("fadeOut"));
         var textClass = div.attr("textClass");
@@ -23,7 +25,8 @@
             easing: "easeInOutQuart",
             ballCSSClass: "ball",
             textCSSClass: "loadingText",
-            text: ""
+            text: "",
+			groupSize: 0
         }, options);
         if (args.text != "") {
             var t = document.createElement("span");
@@ -31,6 +34,14 @@
             div.append(t);
         }
         var intervalID = setInterval(function () {
+	
+			if(beQuiet) return;
+			
+			ballsInView++;
+			if(ballsInView>args.groupSize && args.groupSize!=0){
+				beQuiet=true;
+			}		
+			
             var ball = document.createElement("span");
             ball.style.opacity = 0;
 			$(ball).offset({left:$(ball).width()});
@@ -55,7 +66,10 @@
                 easing: args.easing,
                 queue: false,
                 always: function () {
-                    $(ball).remove();
+					ballsInView--;
+					if(ballsInView==0)
+						beQuiet=false;
+                    $(ball).remove(); //ball removed
                 }
             });
         }, args.newBallsInterval);
